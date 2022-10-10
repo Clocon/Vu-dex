@@ -37,11 +37,8 @@ export default {
       }
     }
   },
-  props: {
-    pokeValue: {
-      type: String,
-      default: null
-    }
+  components: {
+    BuscarPokemon
   },
   options: {
     type: Object,
