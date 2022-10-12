@@ -8,8 +8,11 @@
       <button type="submit" class="btn btn-secondary mb-2">Buscar</button>
     </form>
   </div>
-  <lista-pokemon v-for="pokemon in pokeList" :key="pokemon.id" :pokemon="pokemon" @ereased="deletePokemon" />
-
+  <div class="col-md-12">
+    <div class="row card-container">
+      <ListaPokemon v-for="pokemon in pokeList" :key="pokemon.id" :pokemon="pokemon" @ereased="deletePokemon" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -18,14 +21,9 @@ export default {
   name: 'HomePage',
   data() {
     return {
-      pokeSearch: 'charizard',
+      pokeSearch: '',
       pokeList: [],
-      pokeObj: {
-        pokeName: '',
-        pokeType: '',
-        pokeImage: '',
-        pokeId: ''
-      }
+      pokeOrderList: []
     }
   },
   components: {
@@ -35,24 +33,36 @@ export default {
     type: Object,
     required: true
   },
-  methods: {
-    async loadPokemonData(pokeSearch) {
-      console.info('-- Cargamos un Pokemon --')
-      try {
-        const requestPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeSearch}`)
-        const pokeData = await requestPokemon.json()
-        this.pokeObj.pokeName = pokeData.name
-        this.pokeObj.pokeImage = pokeData.sprites.front_default
-        this.pokeObj.pokeId = pokeData.id
-        this.pokeObj.pokeType = pokeData.types
-        this.pokeList.push(this.pokeObj)
-      } catch (error) {
-        console.info("No hemos podido encontrar a tu pokemon, pasa un nombre válido, por favor.", error)
-      }
+  watch: {
+    Pokemons() {
+      localStorage.setItem("ListaPokemon", this.pokeList)
+      this.loadPokemonData()
     }
   },
-  mounted() {
-    this.loadPokemonData(this.pokeSearch)
+  methods: {
+    async loadPokemonData() {
+      console.info('-- Cargamos un Pokemon --')
+      try {
+        if (this.pokeList.find(e => e.pokeName === this.pokeSearch)) {
+          console.info("Ese Pokemon ya lo tienes capturado!!")
+          return
+        }
+        const requestPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${this.pokeSearch}`)
+        const pokeData = await requestPokemon.json()
+        const pokeObj = {
+          pokeName: pokeData.name,
+          pokeImage: pokeData.sprites.front_default,
+          pokeId: pokeData.id,
+          pokeType: pokeData.types
+        }
+        this.pokeList.push(pokeObj)
+      } catch (error) {
+        console.info(error)
+      }
+    },
+    deletePokemon(pokemon) {
+      this.pokeList.splice(this.pokeList.indexOf(pokemon), 1)
+    }
   }
 }
 </script>
