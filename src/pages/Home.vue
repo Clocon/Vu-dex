@@ -1,35 +1,26 @@
 <template>
   <div class="row">
-    <form id="searchForm" class="form-inline col-md-8 offset-md-2">
+    <form @submit.prevent="loadPokemonData" id="searchForm" class="form-inline col-md-8 offset-md-2">
       <div class="form-group mb-2 mr-2">
-        <input type="text" class="form-control" id="name" placeholder='Introduce el id o nombre del pokemon'>
+        <input type="text" class="form-control" id="name" v-model="pokeSearch"
+          placeholder='Introduce el id o nombre del pokemon'>
       </div>
       <button type="submit" class="btn btn-secondary mb-2">Buscar</button>
     </form>
   </div>
-  <div class="col-md-12">
-    <div class="row card-container">
-    </div>
-  </div>
-  <div class="card-item col-md-3 text-center card-box" :data-id="pokeObj.pokeId">
-    <a class="remove-btn" href="#">X</a><img class="photo" :src="pokeObj.pokeImage" :alt="pokeObj.pokeName" />
-    <h2 class="name mb-2"> {{pokeObj.pokeName}}</h2>
-    <ul v-for="item in pokeObj.pokeType" class="type-list">
-      <li class="type-item"> {{item.type.name}}&nbsp;</li>
-    </ul>
-  </div>
+  <lista-pokemon v-for="pokemon in pokeList" :key="pokemon.id" :pokemon="pokemon" @ereased="deletePokemon" />
 
 </template>
 
 <script>
-import BuscarPokemon from '@/components/BuscarPokemon.vue'
+import ListaPokemon from '@/components/ListaPokemon.vue'
 export default {
   name: 'HomePage',
   data() {
     return {
+      pokeSearch: 'charizard',
       pokeList: [],
       pokeObj: {
-        pokeSearch: 'charizard',
         pokeName: '',
         pokeType: '',
         pokeImage: '',
@@ -38,7 +29,7 @@ export default {
     }
   },
   components: {
-    BuscarPokemon
+    ListaPokemon
   },
   options: {
     type: Object,
@@ -61,7 +52,7 @@ export default {
     }
   },
   mounted() {
-    this.loadPokemonData(this.pokeObj.pokeSearch)
+    this.loadPokemonData(this.pokeSearch)
   }
 }
 </script>
