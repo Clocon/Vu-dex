@@ -61,10 +61,15 @@ form input {
 }
 
 .card-item,
-.type-list,
-.type-item {
+.type-list {
     display: inline-block;
     color: #CEBF7B;
+    text-transform: capitalize;
+    margin-right: 5px;
+}
+
+.type-item {
+    display: inline-block;
     text-transform: capitalize;
     margin-right: 5px;
 }
@@ -73,4 +78,76 @@ form input {
 .type-list,
 .type-item:last-child {
     margin-right: 0;
+}
+
+.ground {
+    color: #DEB887;
+}
+
+.dragon {
+    color: #AB82FF;
+}
+
+.water {
+    color: #B0E2FF;
+}
+
+.steel {
+    color: #CCCCCC;
+}
+
+.bug {
+    color: #99CC33;
+}
+
+.electric {
+    color: #FFD700;
+}
+
+.fairy {
+    color: #FFB0FF;
+}
+
+.dark {
+    color: #A9A9A9;
+}
+
+.fire {
+    color: #FF7F00;
+}
+
+.ghost {
+    color: #778899;
+}
+
+.poison {
+    color: #CC88BB;
+}
+
+.ice {
+    color: #ADD8E6;
+}
+
+.grass {
+    color: #99FF66;
+}
+
+.fighting {
+    color: #FF6A6A;
+}
+
+.flying {
+    color: #BAAAFF;
+}
+
+.psychic {
+    color: #FFB5C5;
+}
+
+.normal {
+    color: #DDCCAA;
+}
+
+.rock {
+    color: #CD853F;
 }

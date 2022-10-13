@@ -1,10 +1,10 @@
 <template>
-  <div v-if="pokemon" class="card-item col-md-3 text-center card-box" :data-id="pokemon.pokeId">
+  <div v-if="pokemon" class="card-item col-md-2 text-center card-box" :data-id="pokemon.pokeId">
     <a class="remove-btn" href="#" @click.prevent="deletePokemon">X</a><img class="photo" :src="pokemon.pokeImage"
       :alt="pokemon.pokeName" />
     <h2 class="name mb-2"> {{pokemon.pokeName}}</h2>
     <ul v-for="item in pokemon.pokeType" class="type-list">
-      <li class="type-item"> {{item.type.name}}&nbsp;</li>
+      <li class="type-item" :class="item.type.name"> {{item.type.name}}&nbsp;</li>
     </ul>
   </div>
 </template>
