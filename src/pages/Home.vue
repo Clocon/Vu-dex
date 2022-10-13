@@ -56,12 +56,17 @@ export default {
           pokeType: pokeData.types
         }
         this.pokeList.push(pokeObj)
+        arrayToString(this.poke)
       } catch (error) {
         console.info(error)
       }
     },
     deletePokemon(pokemon) {
       this.pokeList.splice(this.pokeList.indexOf(pokemon), 1)
+    },
+    arrayToString(pokeList) {
+      const pokeListString = pokeList.toString()
+      console.log(pokeListString)
     }
   }
 }
