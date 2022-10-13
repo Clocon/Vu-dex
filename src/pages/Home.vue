@@ -34,9 +34,10 @@ export default {
     required: true
   },
   watch: {
-    Pokemons() {
-      localStorage.setItem("ListaPokemon", this.pokeList)
-      this.loadPokemonData()
+    pokeSearch() {
+      localStorage.setItem('Lista_Pokemons', JSON.stringify(this.pokeList))
+      loadPokemonData(this.pokeList.name)
+      console.log("hola")
     }
   },
   methods: {
@@ -56,18 +57,27 @@ export default {
           pokeType: pokeData.types
         }
         this.pokeList.push(pokeObj)
-        arrayToString(this.poke)
+        this.pokeList.sort(function (a, b) {
+          const pokeA = new Date(a.pokeId)
+          const pokeB = new Date(b.pokeId);
+          if (pokeA < pokeB) return -1;
+          if (pokeA > pokeB) return 1;
+          return 0;
+        })
       } catch (error) {
         console.info(error)
       }
     },
     deletePokemon(pokemon) {
       this.pokeList.splice(this.pokeList.indexOf(pokemon), 1)
-    },
-    arrayToString(pokeList) {
-      const pokeListString = pokeList.toString()
-      console.log(pokeListString)
     }
-  }
+  }/* ,
+  mounted() {
+    let arrayStorage = JSON.parse(localStorage.getItem('Lista_Pokemons'))
+    arrayStorage.forEach(e => {
+      this.pokeSearch = e.pokeName
+      loadPokemonData()
+    })
+  } */
 }
 </script>
