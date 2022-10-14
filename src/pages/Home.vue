@@ -23,7 +23,8 @@ export default {
     return {
       continuamos: false,
       pokeSearch: '',
-      pokeList: []
+      pokeList: [],
+      pokeOrderList: []
     }
   },
   components: {
@@ -49,14 +50,15 @@ export default {
           pokeId: pokeData.id,
           pokeType: pokeData.types
         }
-        this.pokeList.push(pokeObj)
-        this.pokeList.sort(function (a, b) {
+        this.pokeOrderList.push(pokeObj)
+        this.pokeOrderList.sort(function (a, b) {
           const pokeA = new Date(a.pokeId)
           const pokeB = new Date(b.pokeId);
           if (pokeA < pokeB) return -1;
           if (pokeA > pokeB) return 1;
           return 0;
         })
+        this.pokeList = this.pokeOrderList
         localStorage.setItem('Lista_Pokemons', JSON.stringify(this.pokeList))
 
       } catch (error) {
@@ -71,7 +73,8 @@ export default {
   mounted() {
     const arrayStorage = JSON.parse(localStorage.getItem('Lista_Pokemons'))
     if (arrayStorage) {
-      this.pokeList = arrayStorage
+      this.pokeOrderList = arrayStorage
+      this.pokeList = this.pokeOrderList
     }
   }
 }
