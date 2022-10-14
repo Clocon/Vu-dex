@@ -23,8 +23,7 @@ export default {
     return {
       continuamos: false,
       pokeSearch: '',
-      pokeList: [],
-      pokeOrderList: []
+      pokeList: []
     }
   },
   components: {
@@ -58,9 +57,8 @@ export default {
           if (pokeA > pokeB) return 1;
           return 0;
         })
-        if (!this.continuamos) {
-          localStorage.setItem('Lista_Pokemons', JSON.stringify(this.pokeList))
-        }
+        localStorage.setItem('Lista_Pokemons', JSON.stringify(this.pokeList))
+
       } catch (error) {
         console.info(error)
       }
@@ -72,10 +70,9 @@ export default {
   },
   mounted() {
     const arrayStorage = JSON.parse(localStorage.getItem('Lista_Pokemons'))
-    arrayStorage.forEach(e => {
-      this.pokeSearch = e.pokeName
-      this.loadPokemonData()
-    })
+    if (arrayStorage) {
+      this.pokeList = arrayStorage
+    }
   }
 }
 </script>
