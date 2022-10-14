@@ -21,6 +21,7 @@ export default {
   name: 'HomePage',
   data() {
     return {
+      continuamos: false,
       pokeSearch: '',
       pokeList: [],
       pokeOrderList: []
@@ -32,13 +33,6 @@ export default {
   options: {
     type: Object,
     required: true
-  },
-  watch: {
-    pokeSearch() {
-      localStorage.setItem('Lista_Pokemons', JSON.stringify(this.pokeList))
-      loadPokemonData(this.pokeList.name)
-      console.log("hola")
-    }
   },
   methods: {
     async loadPokemonData() {
@@ -64,20 +58,24 @@ export default {
           if (pokeA > pokeB) return 1;
           return 0;
         })
+        if (!this.continuamos) {
+          localStorage.setItem('Lista_Pokemons', JSON.stringify(this.pokeList))
+        }
       } catch (error) {
         console.info(error)
       }
     },
     deletePokemon(pokemon) {
       this.pokeList.splice(this.pokeList.indexOf(pokemon), 1)
+      localStorage.setItem('Lista_Pokemons', JSON.stringify(this.pokeList))
     }
-  }/* ,
+  },
   mounted() {
-    let arrayStorage = JSON.parse(localStorage.getItem('Lista_Pokemons'))
+    const arrayStorage = JSON.parse(localStorage.getItem('Lista_Pokemons'))
     arrayStorage.forEach(e => {
       this.pokeSearch = e.pokeName
-      loadPokemonData()
+      this.loadPokemonData()
     })
-  } */
+  }
 }
 </script>
