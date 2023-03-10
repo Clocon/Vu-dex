@@ -6,6 +6,7 @@ Browse a list of pokemon with their images and names.
 Filter the list of pokemon by type.
 Search for a specific pokemon by name or number.
 View detailed information about a selected pokemon, including its stats, abilities, and evolutions.
+
 Technologies Used :
 1. Vue.js
 2. Axios
